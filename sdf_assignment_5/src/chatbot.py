@@ -28,14 +28,15 @@ Raises:
     ValueError: If the user enters an account number that is not a whole number.
     Exception: If the entered account number does not exist in the ACCOUNTS dictionary.
 """
-    account_input = input("Please enter your account number:")
     try : 
+        account_input = input("Please enter your account number:")
         account_number = int(account_input)
         if account_number not in ACCOUNTS:
             raise Exception("Account number entered does not exist.")
         return account_number
-    except:
-        print("Account number must be a whole number.")
+    
+    except ValueError:
+        raise ValueError("Account number must be a whole number.")
     
 def get_amount()->float:
     """
