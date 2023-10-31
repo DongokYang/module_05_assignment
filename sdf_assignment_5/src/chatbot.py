@@ -6,7 +6,7 @@ Modified by: Dongok Yang
 Date: 2023-10-15
 Usage: From the console: python src/chatbot.py
 """
-
+import re
 ## GIVEN CONSTANT COLLECTIONS
 ACCOUNTS = {
     123456 : {"balance" : 1000.0},
@@ -32,7 +32,7 @@ Raises:
         account_input = input("Please enter your account number:")
         account_number = int(account_input)
         if account_number not in ACCOUNTS:
-            raise Exception("Account number entered does not exist.")
+            raise Exception("Account number does not exist.")
         return account_number
     
     except ValueError:
@@ -49,14 +49,16 @@ Raises:
     ValueError: If the user enters an amount that is not numeric.
     Exception: If the entered amount below or equal to zero.
 """
-    amount_input = input("Please enter your account number:")
+    amount_input = input("Enter transaction amount:")
     try : 
+        if not re.match(r'^-?\d+(\.\d+)?$', amount_input):  # Allow for a "-" at the beginning for negative amounts
+            raise ValueError("Invalid amount. Amount must be numeric.")
         amount_input = float(amount_input)
-        if amount_input <= 0:
-            raise Exception("Invalid amount. Please enter a positive number.")
-    except:
-        print("Invalid amount. Amount must be numeric.")
-    return amount_input
+        if amount_input <=0:
+            raise ValueError("Invalid amount. Please enter a positive number.")
+        return amount_input
+    except ValueError as valuerror:
+        raise valuerror
 
 def get_balance(account: int)->str:
     """
@@ -140,50 +142,31 @@ def chatbot():
     keep_going = True
     while keep_going:
         try:
-            ## CALL THE user_selection FUNCTION HERE 
             selection = user_selection()
-            ## CAPTURING THE RESULTS IN A VARIABLE CALLED
-            ## selection:
-
-
             if selection != "exit":
-                
                 # Account number validation.
                 valid_account = False
                 while valid_account == False:
                     try:
-                        ## CALL THE get_account FUNCTION HERE
-                        ## CAPTURING THE RESULTS IN A VARIABLE 
-                        ## CALLED account:
                         account = get_account()
                         valid_account = True
                     except Exception as e:
                         # Invalid account.
                         print(e)
+
                 if selection == "balance":
-                        ## CALL THE get_balance FUNCTION HERE
-                        ## PASSING THE account VARIABLE DEFINED 
-                        ## ABOVE, AND PRINT THE RESULTS:
                     balance_info = get_balance(account)
                     print(balance_info)
-
                 else:
-
                     # Amount validation.
                     valid_amount = False
                     while valid_amount == False:
                         try:
-                            ## CALL THE get_amount FUNCTION HERE
-                            ## AND CAPTURE THE RESULTS IN A VARIABLE 
-                            ## CALLED amount:
                             amount = get_amount()
                             valid_amount = True
                         except Exception as e:
                             # Invalid amount.
                             print(e)
-                    ## CALL THE make_deposit FUNCTION HERE PASSING THE 
-                    ## VARIABLES account AND amount DEFINED ABOVE AND 
-                    ## PRINT THE RESULTS:
                     deposit_info = make_deposit(account, amount)
                     print(deposit_info)
 
