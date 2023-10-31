@@ -75,6 +75,32 @@ Raises:
     else:
         raise Exception('Account number does not exist.')    
 
+def make_deposit(account: int,amount:float)->str:
+    """
+    make_deposit function receive two parameters.
+    it makes a deposit.
+
+args:
+    account(int) : the account number that deposit is requested.
+    amount(float) : the amount of money to be deposited.
+Returns:
+    str: a confirmation message.
+Raises:
+    Exception: If the account isn't in the Account dictionary.
+    ValueError: If the provided amount of money is not proper.
+"""
+    if account not in ACCOUNTS:
+        raise Exception("Account number does not exist.")
+
+    if amount <= 0:
+        raise ValueError("Invalid amount. Amount must be positive.")
+
+    ACCOUNTS[account]["balance"] += amount
+    return f"You have made a deposit of ${amount:,.2f} to account {account}."
+
+
+
+
 ## GIVEN CHATBOT FUNCTION
 ## REQUIRES REVISION
 """
