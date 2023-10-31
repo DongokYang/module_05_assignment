@@ -19,7 +19,9 @@ VALID_TASKS = {"balance", "deposit", "exit"}
 
 def get_account()->int:
     """
-    get_account function prompt user for an account number.
+    get_account function prompt user for an account number 
+    it verifies input is a valid number.
+
 Returns:
     int: The valid account number entered by the user.
 Raises:
@@ -31,13 +33,15 @@ Raises:
         account_number = int(account_input)
         if account_number not in ACCOUNTS:
             raise Exception("Account number entered does not exist.")
+        return account_number
     except:
         print("Account number must be a whole number.")
-    return account_number
     
 def get_amount()->float:
     """
-    get_amount function prompt user for an account numbrer .
+    get_amount function prompt user for an amount.
+    It verifies input is a valid number.
+
 Returns:
     float: The valid amount number entered by the user.
 Raises:
@@ -53,7 +57,23 @@ Raises:
         print("Invalid amount. Amount must be numeric.")
     return amount_input
 
+def get_balance(account: int)->str:
+    """
+    get_balance function receive an integer parameter.
+    it returns balance information.
 
+args:
+    account(int) : the account number that blance is requested.
+Returns:
+    str: a message representing the balance for account.
+Raises:
+    Exception: If the account isn't in the Account library.
+"""
+    if account in ACCOUNTS:
+        balance = ACCOUNTS[account]["balance"]
+        return f'Your current balance for account {account} is ${balance:,.2f}.'
+    else:
+        raise Exception('Account number does not exist.')    
 
 ## GIVEN CHATBOT FUNCTION
 ## REQUIRES REVISION
