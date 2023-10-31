@@ -98,6 +98,26 @@ Raises:
     ACCOUNTS[account]["balance"] += amount
     return f"You have made a deposit of ${amount:,.2f} to account {account}."
 
+def user_selection() -> str:
+    """
+    user_selection function prompt the user for selection and return it if valid.
+
+    This function prompts the user to enter their desired task.
+    If the selection is valid, and matches one of the tasks in VALID_TASKS, it is returned as a lowercase string.
+    If the selection is not valid, a ValueError exception is raised with an error message.
+
+    Returns:
+        str: The selected task("balance," "deposit," or "exit") in lowercase.
+
+    Raises:
+        ValueError: If an invalid task is entered by the user.
+    """
+    while True:
+        selction_input = input("What would you like to do (balance/deposit/exit)? ").strip().lower()
+        if selction_input in VALID_TASKS:
+            return selction_input
+        else:
+            raise ValueError("Invalid task. Please choose balance, deposit, or exit.")
 
 
 
