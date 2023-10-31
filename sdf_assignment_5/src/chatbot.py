@@ -123,7 +123,7 @@ def user_selection() -> str:
 
 ## GIVEN CHATBOT FUNCTION
 ## REQUIRES REVISION
-"""
+
 def chatbot():
     '''
     The main program.  Uses the functionality of the functions:
@@ -140,6 +140,7 @@ def chatbot():
     while keep_going:
         try:
             ## CALL THE user_selection FUNCTION HERE 
+            selection = user_selection()
             ## CAPTURING THE RESULTS IN A VARIABLE CALLED
             ## selection:
 
@@ -153,8 +154,7 @@ def chatbot():
                         ## CALL THE get_account FUNCTION HERE
                         ## CAPTURING THE RESULTS IN A VARIABLE 
                         ## CALLED account:
-
-
+                        account = get_account()
                         valid_account = True
                     except Exception as e:
                         # Invalid account.
@@ -163,6 +163,8 @@ def chatbot():
                         ## CALL THE get_balance FUNCTION HERE
                         ## PASSING THE account VARIABLE DEFINED 
                         ## ABOVE, AND PRINT THE RESULTS:
+                    balance_info = get_balance(account)
+                    print(balance_info)
 
                 else:
 
@@ -173,8 +175,7 @@ def chatbot():
                             ## CALL THE get_amount FUNCTION HERE
                             ## AND CAPTURE THE RESULTS IN A VARIABLE 
                             ## CALLED amount:
-
-
+                            amount = get_amount()
                             valid_amount = True
                         except Exception as e:
                             # Invalid amount.
@@ -182,7 +183,8 @@ def chatbot():
                     ## CALL THE make_deposit FUNCTION HERE PASSING THE 
                     ## VARIABLES account AND amount DEFINED ABOVE AND 
                     ## PRINT THE RESULTS:
-
+                    deposit_info = make_deposit(account, amount)
+                    print(deposit_info)
 
             else:
                 # User selected 'exit'
@@ -192,9 +194,6 @@ def chatbot():
             print(e)
 
     print("Thank you for banking with PiXELL River Financial.")
-"""
-    
-"""
+
 if __name__ == "__main__":
     chatbot()
-"""
